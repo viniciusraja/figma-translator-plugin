@@ -1,5 +1,6 @@
 import { Tabs, TabList, Tab, TabPanels } from "@chakra-ui/react";
 import TranslatorTabPanel from "../TranslatorTabPanel";
+import MyLibraryPanel from "../MyLibraryPanel/MyLibraryPanel";
 
 const TranslatorDashboard = () => {
   return (
@@ -10,7 +11,7 @@ const TranslatorDashboard = () => {
       </TabList>
       <TabPanels>
         <TranslatorTabPanel />
-        <TranslatorTabPanel />
+        <MyLibraryPanel />
       </TabPanels>
     </Tabs>
   );
