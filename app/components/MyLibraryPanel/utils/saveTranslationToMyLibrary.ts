@@ -8,10 +8,10 @@ const saveTranslationToMyLibrary = async (
     await figmaAPI.run(
       async (figma, { originalText, customTranslationText }) => {
         const itemToSaveToLibrary = { [originalText]: customTranslationText };
-        const myLibrary = await figma.clientStorage.getAsync("my-library");
+        const myLibrary = await figma.clientStorage.getAsync("my_library");
 
         if (!itemToSaveToLibrary) return;
-        await figma.clientStorage.setAsync("my-library", {
+        await figma.clientStorage.setAsync("my_library", {
           ...myLibrary,
           ...itemToSaveToLibrary,
         });

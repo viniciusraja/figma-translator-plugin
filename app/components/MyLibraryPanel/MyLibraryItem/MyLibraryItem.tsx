@@ -10,16 +10,14 @@ type MyLibraryItemProps = {
 
 const MyLibraryItem = ({ name }: MyLibraryItemProps) => {
   const myLibraryNames = {
-    original: `${name}-original`,
-    translation: `${name}-translation`,
+    original: `${name}.original`,
+    translation: `${name}.translation`,
   };
   const { watch } = useFormContext();
-  //   console.log(watch());
 
   const handleSaveKeyToUserLibrary = () => {
     const originalText = watch(myLibraryNames.original);
     const translatedText = watch(myLibraryNames.translation);
-    console.log({ originalText, translatedText });
 
     saveTranslationToMyLibrary(originalText, translatedText);
   };
