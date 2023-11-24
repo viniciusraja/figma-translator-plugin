@@ -23,7 +23,6 @@ export default async function replaceSelectedTexts(
       };
 
       for (const node of selection) {
-        console.log(node?.type);
         if (node?.type !== "FRAME")
           return figma.notify("Please select a frame to duplicate.");
 
