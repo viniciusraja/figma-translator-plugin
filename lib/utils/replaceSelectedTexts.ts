@@ -21,7 +21,12 @@ export default async function replaceSelectedTexts(
         }
         return null;
       };
+
       for (const node of selection) {
+        console.log(node?.type);
+        if (node?.type !== "FRAME")
+          return figma.notify("Please select a frame to duplicate.");
+
         const clonedNode = node?.clone();
 
         if ("findAllWithCriteria" in clonedNode) {

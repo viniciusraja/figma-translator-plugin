@@ -1,7 +1,3 @@
-// import { figmaAPI } from "@/lib/figmaAPI";
-import { figmaAPI } from "@/lib/figmaAPI";
-import { getTextForSelection } from "@/lib/getTextForSelection";
-import { getTextOffset } from "@/lib/getTextOffset";
 import replaceSelectedTexts from "@/lib/utils/replaceSelectedTexts";
 import { Button, HStack, Input, TabPanel, Text } from "@chakra-ui/react";
 import { useState } from "react";
