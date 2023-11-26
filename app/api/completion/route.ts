@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 import { ClientOptions, OpenAI } from "openai";
 
-// import { OpenAIStream, StreamingTextResponse } from "ai";
-
 // Create an OpenAI API client
 const config: ClientOptions = {
   apiKey: process.env.OPENAI_API_KEY,
@@ -31,7 +29,9 @@ async function buildUserMessage(req: Request): Promise<any> {
 
     return {
       role: "user",
-      content: `translate: ${JSON.stringify(body)} from english to portuguese`,
+      content: `translate the object bellow from english to portuguese\n ${JSON.stringify(
+        body
+      )}`,
     };
   } catch (error) {
     console.error(error);
@@ -44,13 +44,12 @@ export async function POST(req: Request) {
     const userMessage = await buildUserMessage(req);
 
     const response = await openai.chat.completions.create({
-      //   model: "gpt-3.5-turbo-1106",
+      // model: "gpt-3.5-turbo-1106",
       model: "gpt-3.5-turbo",
 
       stream: false,
       temperature: 0,
 
-      max_tokens: 200,
       messages: [systemMessage, userMessage],
     });
 
