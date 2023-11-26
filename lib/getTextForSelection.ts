@@ -6,24 +6,26 @@ export async function getTextForSelection() {
 
     const getTextForNode = (node: SceneNode) => {
       if (node.type === "TEXT") {
-        return node.characters;
+        return { id: node.id, text: node.characters };
       } else if (node.type === "STICKY" || node.type === "SHAPE_WITH_TEXT") {
-        return node.text.characters;
+        return { id: node.id, text: node.text.characters };
       }
       return null;
     };
 
-    const layers: string[] = [];
+    type MyTextNode = { id: string; text: string };
+    const layers: MyTextNode[] = [];
 
     for (const node of selection) {
       if ("findAllWithCriteria" in node) {
         const childText = node
-          .findAllWithCriteria({
+          ?.findAllWithCriteria({
             types: ["TEXT", "STICKY", "SHAPE_WITH_TEXT"],
           })
-          .map(getTextForNode)
-          .filter((t): t is string => t !== null);
-        layers.push(...childText);
+          ?.map(getTextForNode)
+          ?.filter((textNode) => textNode !== null);
+
+        layers.push(childText as any as MyTextNode);
       }
       const text = getTextForNode(node);
       if (text !== null) {
