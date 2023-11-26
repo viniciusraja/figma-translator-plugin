@@ -15,7 +15,7 @@ export const runtime = "edge";
 const systemMessage = {
   role: "system",
   content:
-    "You are a translator expert that considers the context of all the text given to you before translating, you receive the text in a key value pair and returns the translations in the same format",
+    "You are a translator expert that considers the context of all the text given to you before translating, you receive the text in a object format and returns the translations in the same format minified",
 } as const;
 
 // This is used to format the message that the user sends to the API. Note we should

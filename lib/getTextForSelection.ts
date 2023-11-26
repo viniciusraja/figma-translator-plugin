@@ -1,5 +1,7 @@
 import { figmaAPI } from "@/lib/figmaAPI";
 
+export type MyTextNode = { id: string; text: string };
+
 export async function getTextForSelection() {
   return await figmaAPI.run((figma) => {
     const { selection } = figma.currentPage;
@@ -13,7 +15,6 @@ export async function getTextForSelection() {
       return null;
     };
 
-    type MyTextNode = { id: string; text: string };
     const layers: MyTextNode[] = [];
 
     for (const node of selection) {
@@ -25,7 +26,7 @@ export async function getTextForSelection() {
           ?.map(getTextForNode)
           ?.filter((textNode) => textNode !== null);
 
-        layers.push(childText as any as MyTextNode);
+        layers.push(...(childText as MyTextNode[]));
       }
       const text = getTextForNode(node);
       if (text !== null) {
