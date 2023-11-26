@@ -17,7 +17,7 @@ export const runtime = "edge";
 const systemMessage = {
   role: "system",
   content:
-    "You are a translator expert that considers the context of all the text given to you before translating",
+    "You are a translator expert that considers the context of all the text given to you before translating, you receive the text in a key value pair and returns the translations in the same format",
 } as const;
 
 // This is used to format the message that the user sends to the API. Note we should
@@ -28,17 +28,10 @@ const systemMessage = {
 async function buildUserMessage(req: Request): Promise<any> {
   try {
     const body = await req.json();
-    console.log(body);
-
-    // We use zod to validate the request body. To change the data that is sent to the API,
-    // change the CompletionRequestBody type in lib/types.ts
-    // const { layers } = CompletionRequestBody.parse(body);
-
-    const bulletedList = body.map((layer) => `${layer}\n`).join("");
 
     return {
       role: "user",
-      content: `translate: ${bulletedList} from portuguese to english and do not return the original texts`,
+      content: `translate: ${JSON.stringify(body)} from english to portuguese`,
     };
   } catch (error) {
     console.error(error);
@@ -46,12 +39,9 @@ async function buildUserMessage(req: Request): Promise<any> {
 }
 
 export async function POST(req: Request) {
-  console.log("entrouuuuuuuuuuuuuuuuuu aquiii");
-
   // Ask OpenAI for a streaming completion given the prompt
   try {
     const userMessage = await buildUserMessage(req);
-    console.log(systemMessage, userMessage);
 
     const response = await openai.chat.completions.create({
       //   model: "gpt-3.5-turbo-1106",
@@ -60,28 +50,16 @@ export async function POST(req: Request) {
       stream: false,
       temperature: 0,
 
-      //   response_format: { type: "json_object" },
       max_tokens: 200,
-      //   prompt: "translate these words [bola, casamento]",
       messages: [systemMessage, userMessage],
     });
-
-    console.log({ response });
 
     return new NextResponse(JSON.stringify(response), {
       headers: { "Content-Type": "application/json" },
       status: 200,
     });
   } catch (err: any) {
-    console.error(
-      err,
-      "kasdkomaskodmkoasmdokamsdomasodmasokdmoasmdoasmdomasdokmaokdmaomdsoasmkdom"
-    );
+    console.error(err);
     return NextResponse.json({ error: err?.message }, { status: 500 });
   }
-
-  // Convert the response into a friendly text-stream
-  //   const stream = OpenAIStream(response);
-  // Respond with the stream
-  //   const result = new StreamingTextResponse(stream);
 }
