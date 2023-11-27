@@ -17,7 +17,7 @@ const colors = {
     400: "#C7C7C7",
     300: "#E8E8E8",
   },
-  hover: "#EFEAF0",
+  hover: { light: "#EFEAF0", dark: "#D2B1F0" },
 } as const;
 
 export default colors;

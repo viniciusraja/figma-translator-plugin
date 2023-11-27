@@ -27,7 +27,7 @@ const Button: ComponentStyleConfig = {
       color: colors.gray[500],
     },
     _loading: {
-      bg: colors.hover,
+      bg: colors.hover.dark,
     },
     fontWeight: "regular",
   },
