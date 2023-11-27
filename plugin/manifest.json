@@ -1,12 +1,20 @@
 {
-  "name": "ai-plugin-template",
+  "name": "AITranslator",
   "id": "ai-plugin-template",
   "api": "1.0.0",
   "main": "dist/code.js",
+  "permissions": [
+    "currentuser"
+  ],
   "enableProposedApi": false,
-  "editorType": ["figma", "figjam"],
+  "editorType": [
+    "figma",
+    "figjam"
+  ],
   "networkAccess": {
-    "allowedDomains": ["*"],
+    "allowedDomains": [
+      "*"
+    ],
     "reasoning": "Internet access for local development."
   }
 }

@@ -1,13 +1,10 @@
 import { getTextForSelection } from "@/lib/getTextForSelection";
 import setFigmaTextByNodeId from "@/lib/setFigmaTextByNodeId";
-import {
-  Button,
-  CircularProgress,
-  TabPanel,
-  useBoolean,
-} from "@chakra-ui/react";
+import { Button, TabPanel, useBoolean } from "@chakra-ui/react";
 import translationPayloadFormatter from "../MyLibraryPanel/utils/translationPayloadFormatter/translationPayloadFormatter";
 import translationResponseFormatter from "../MyLibraryPanel/utils/translationResponseFormatter.ts/translationResponseFormatter";
+import CustomSelect from "../Form/Selects/CustomSelect";
+import { FormProvider, useForm } from "react-hook-form";
 
 const TranslatorTabPanel = () => {
   const [isLoading, { on: setIsLoadingOn, off: setIsLoadingOff }] =
@@ -43,14 +40,27 @@ const TranslatorTabPanel = () => {
     setIsLoadingOff();
   };
 
+  const form = useForm();
+
   return (
-    <TabPanel p="4">
-      {isLoading ? (
-        <CircularProgress isIndeterminate />
-      ) : (
-        <Button onClick={handleTranslate}>Translate</Button>
-      )}
-    </TabPanel>
+    <FormProvider {...form}>
+      <TabPanel p="4">
+        <Button isLoading={isLoading} onClick={handleTranslate}>
+          Translate
+        </Button>
+        <CustomSelect
+          name="select 1"
+          placeholder="Selecione o idioma"
+          label="label"
+          options={[
+            { value: "1", label: "1" },
+            { value: "asdasd", label: "1ajksdon" },
+            { value: "1dd", label: "asdasd1" },
+            { value: "1aaa", label: "asdas asdasd1" },
+          ]}
+        />
+      </TabPanel>
+    </FormProvider>
   );
 };
 
