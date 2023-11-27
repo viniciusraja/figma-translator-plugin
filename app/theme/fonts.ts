@@ -1,6 +1,6 @@
 import { Nunito } from "next/font/google";
 
-const nunito = Nunito({ subsets: ["latin"] });
+const nunito = Nunito({ subsets: ["latin"], weight: ["300", "400", "700"] });
 
 const fonts = {
   body: nunito.style.fontFamily,
