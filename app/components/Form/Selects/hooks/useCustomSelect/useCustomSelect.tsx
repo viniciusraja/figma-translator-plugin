@@ -1,4 +1,4 @@
-import { useFormContext } from "react-hook-form";
+import { useController, useFormContext } from "react-hook-form";
 import {
   ActionMeta,
   GroupBase,
@@ -20,13 +20,11 @@ type UseCustomSelectProps = {
 type GetCustomSelectProps = CustomSelectProps;
 
 const useCustomSelect = ({ name }: UseCustomSelectProps) => {
-  const { watch, resetField, control, register } = useFormContext();
+  const { field } = useController({ name });
 
-  const {
-    onChange: onChangeSelect,
-    ref: fieldRef,
-    ...selectField
-  } = register(name);
+  const { watch, resetField } = useFormContext();
+
+  const { onChange: onChangeSelect, ref: fieldRef, ...selectField } = field;
 
   const selectInputRef =
     useRef<SelectInstance<any, boolean, GroupBase<unknown>>>();
@@ -41,7 +39,7 @@ const useCustomSelect = ({ name }: UseCustomSelectProps) => {
     }
     if (!option) return;
 
-    onChangeSelect((option as any)?.value);
+    onChangeSelect?.((option as any)?.value);
 
     /**
      * Clear Input Value after selection so it keeps the input state clean for new searches
@@ -85,7 +83,6 @@ const useCustomSelect = ({ name }: UseCustomSelectProps) => {
       stringify: (option) => `${option.label}`,
     });
 
-    const defaultValue = control._defaultValues[name];
     const searchSelectComponents = getComponents(components as any);
 
     return {
@@ -99,7 +96,7 @@ const useCustomSelect = ({ name }: UseCustomSelectProps) => {
       },
       label,
       filterOption: filterConfig,
-      isClearable: selectedOption?.value !== defaultValue,
+      isClearable: false,
       value: selectedOption,
       placeholderTextColor: "red",
       backspaceRemovesValue: true,

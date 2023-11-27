@@ -28,6 +28,12 @@ const useSelectCustomStyle = () => {
       borderColor: colors.hover.dark,
       backgroundColor: colors.white,
       display: "flex",
+      _hover: {
+        borderColor: colors.primary,
+      },
+      _focus: {
+        borderColor: colors.primary,
+      },
     }),
     placeholder: (provided) => ({
       ...provided,
@@ -36,7 +42,7 @@ const useSelectCustomStyle = () => {
     dropdownIndicator: (provided) => ({
       ...provided,
       backgroundColor: colors.white,
-      color:colors.primary
+      color: colors.primary,
     }),
     container: (provided) => ({
       ...provided,
@@ -72,15 +78,28 @@ const useSelectCustomStyle = () => {
     }),
     option: (provided, state) => ({
       ...provided,
-      minH: "45px",
-      backgroundColor: state.isFocused ? colors.secondary : colors.white,
+      minH: SELECT_HEIGHT,
       alignItems: "center",
       color: state.isFocused ? "white" : colors.text,
+      _selected: {
+        backgroundColor: colors.primary,
+        opacity: "1",
+        color: colors.white,
+      },
+      backgroundColor: state.isFocused ? colors.hover.dark : colors.white,
+    }),
+
+    menuList: (provided) => ({
+      ...provided,
+      padding: "0px",
+      borderRadius: "8px",
+      borderWidth: "1px",
+      borderColor: colors.hover.dark,
     }),
     menu: (provided) => ({
       ...provided,
-      margin: "0px",
-      borderWidth: "1px",
+      borderRadius: "8px",
+      marginTop: "8px",
     }),
   });
   return { getSelectCustomStyles };
