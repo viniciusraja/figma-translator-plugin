@@ -11,15 +11,20 @@ const Button: ComponentStyleConfig = {
     solid: () => ({
       bg: colors.primary,
       color: colors.white,
+      _hover: {
+        bg: colors.hover.dark,
+      },
     }),
     outline: () => ({
       bg: colors.white,
       color: colors.primary,
       borderWidth: "1px",
       borderColor: colors.primary,
+      _hover: {
+        bg: colors.hover.dark,
+      },
     }),
   },
-
   baseStyle: {
     borderRadius: "8px",
     _disabled: {
