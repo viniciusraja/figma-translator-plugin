@@ -10,7 +10,7 @@ const config: ThemeConfig = {
 };
 const overrides = {
   colors,
-  fonts,
+  ...fonts,
   styles,
   components: {
     Button,
