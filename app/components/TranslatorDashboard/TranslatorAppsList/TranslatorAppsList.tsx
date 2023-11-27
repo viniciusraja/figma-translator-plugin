@@ -5,13 +5,13 @@ const translatorAppsList = [
     title: "Tradutor",
     description: "Traduza textos ou frames completos.",
     icon: BsTranslate,
-    route: "",
+    routeToNavigate: "/translator-page",
   },
 ];
 
 const TranslatorAppsList = () => {
   return translatorAppsList?.map((translatorApp) => (
-    <TranslatorAppItem {...translatorApp} />
+    <TranslatorAppItem key={translatorApp.title} {...translatorApp} />
   ));
 };
 

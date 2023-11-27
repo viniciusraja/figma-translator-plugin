@@ -8,7 +8,6 @@ const TranslatorDashboard = () => {
   return (
     <VStack w="100%">
       <VStack w="100%" py="8px">
-        <Header />
         <TranslatorAppsList />
       </VStack>
     </VStack>

@@ -1,4 +1,5 @@
 import { HStack, Icon, Text, VStack } from "@chakra-ui/react";
+import { useRouter } from "next/navigation";
 import { IconType } from "react-icons";
 import { IoIosArrowForward } from "react-icons/io";
 
@@ -6,14 +7,17 @@ type TranslatorAppItemProps = {
   title: string;
   description: string;
   icon: IconType;
-  route: string;
+  routeToNavigate: string;
 };
 
 const TranslatorAppItem = ({
   title,
   description,
   icon,
+  routeToNavigate,
 }: TranslatorAppItemProps) => {
+  const route = useRouter?.();
+
   return (
     <VStack w="100%" p="8px">
       <HStack
@@ -22,6 +26,7 @@ const TranslatorAppItem = ({
         p="8px"
         borderRadius={"8px"}
         cursor="pointer"
+        onClick={() => route?.push(routeToNavigate)}
         _hover={{ backgroundColor: "hover.light" }}
       >
         <VStack
