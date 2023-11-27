@@ -1,4 +1,4 @@
-import create, { StateCreator } from "zustand";
+import { StateCreator, create } from "zustand";
 
 type MyLibraryStoreItem = { original: string; translation: string };
 export type MyLibraryStore = MyLibraryStoreItem[];
