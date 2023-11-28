@@ -15,6 +15,13 @@ const Button: ComponentStyleConfig = {
         bg: colors.hover.dark,
       },
     }),
+    error: () => ({
+      bg: colors.error,
+      color: colors.white,
+      _hover: {
+        bg: colors.hover.light,
+      },
+    }),
     outline: () => ({
       bg: colors.white,
       color: colors.primary,
