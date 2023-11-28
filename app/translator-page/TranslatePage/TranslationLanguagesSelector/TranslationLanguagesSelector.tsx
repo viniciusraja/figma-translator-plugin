@@ -9,7 +9,6 @@ const TranslationLanguagesSelector = () => {
     name: "translate_to_languages",
   });
   const { watch } = useFormContext();
-  console.log(watch("translate_to_languages"), fields);
 
   const lastFieldIndex = fields.length - 1;
   return (

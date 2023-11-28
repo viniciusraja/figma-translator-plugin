@@ -31,6 +31,15 @@ const Button: ComponentStyleConfig = {
         bg: colors.hover.dark,
       },
     }),
+    outline_dark: () => ({
+      bg: colors.white,
+      color: colors.text,
+      borderWidth: "1px",
+      borderColor: colors.gray[400],
+      _hover: {
+        bg: colors.hover.dark,
+      },
+    }),
   },
   baseStyle: {
     borderRadius: "8px",

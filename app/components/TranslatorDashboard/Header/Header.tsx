@@ -15,7 +15,6 @@ import CustomBreadCrumb from "./CustomBreadCrumb";
 
 const Header = () => {
   const { figmaContext } = useFigma("currentUser");
-  console.log(figmaContext);
 
   return (
     <VStack w="100%" spacing="0" py="8px" alignItems={"start"}>
@@ -28,7 +27,9 @@ const Header = () => {
           p="8px"
           borderBottomRadius="0px"
         >
-          <Text fontWeight="bold">{figmaContext?.name}</Text>
+          <Text fontWeight="bold" fontSize={"md"}>
+            {figmaContext?.name}
+          </Text>
         </HStack>
       </VStack>
       <Box

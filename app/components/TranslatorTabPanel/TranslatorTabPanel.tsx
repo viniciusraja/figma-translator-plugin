@@ -35,7 +35,7 @@ const TranslatorTabPanel = () => {
         await setFigmaTextByNodeId(translationNode?.id, translationNode?.text);
       });
     } catch (err) {
-      console.log(err, "response err");
+      console.error(err, "response err");
     }
     setIsLoadingOff();
   };

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Providers from "./components/Providers/Providers";
 import Header from "./components/TranslatorDashboard/Header";
+import { VStack } from "@chakra-ui/react";
 
 export const metadata: Metadata = {
   title: "Translator",
@@ -16,8 +17,10 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Providers>
-          <Header />
-          {children}
+          <VStack p="0" m="0" h="100vh">
+            <Header />
+            {children}
+          </VStack>
         </Providers>
       </body>
     </html>
