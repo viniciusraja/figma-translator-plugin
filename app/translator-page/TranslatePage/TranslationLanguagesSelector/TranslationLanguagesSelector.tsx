@@ -3,6 +3,7 @@ import { Button, HStack, Icon, VStack } from "@chakra-ui/react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { FaCirclePlus } from "react-icons/fa6";
 import { FaCircleMinus } from "react-icons/fa6";
+import { availableLanguages } from "./availableLanguages";
 
 const TranslationLanguagesSelector = () => {
   const { fields, append, remove } = useFieldArray({
@@ -20,14 +21,13 @@ const TranslationLanguagesSelector = () => {
           <HStack w="100%" key={field?.id}>
             <CustomSelect
               placeholder="Selecione o idioma"
-              options={[
-                { value: "english", label: "Inglês" },
-                { value: "portuguese", label: "Português" },
-              ]}
+              options={availableLanguages}
               label=""
               name={`translate_to_languages.${index}.language`}
             />
-            {isLastField ? (
+            //TODO reenable when has new prompt form multiple language
+            translations
+            {/* {isLastField ? (
               <Button onClick={append} isDisabled={!isFilled}>
                 <Icon as={FaCirclePlus} color="white" />
               </Button>
@@ -35,7 +35,7 @@ const TranslationLanguagesSelector = () => {
               <Button variant="error" onClick={() => remove(index)}>
                 <Icon as={FaCircleMinus} color="white" />
               </Button>
-            )}
+            )} */}
           </HStack>
         );
       })}
