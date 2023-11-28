@@ -17,9 +17,8 @@ const TranslationLanguagesSelector = () => {
         const isLastField = lastFieldIndex === index;
         const isFilled = watch(`translate_to_languages.${index}.language`);
         return (
-          <HStack w="100%">
+          <HStack w="100%" key={field?.id}>
             <CustomSelect
-              key={field?.id}
               placeholder="Selecione o idioma"
               options={[
                 { value: "english", label: "Inglês" },

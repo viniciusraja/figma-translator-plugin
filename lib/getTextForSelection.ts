@@ -18,6 +18,12 @@ export async function getTextForSelection() {
     const layers: MyTextNode[] = [];
 
     for (const node of selection) {
+      if (node?.type !== "FRAME") {
+        figma.notify("Selecione ao menos um frame para traduzir");
+
+        return;
+      }
+
       if ("findAllWithCriteria" in node) {
         const childText = node
           ?.findAllWithCriteria({

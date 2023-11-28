@@ -26,12 +26,11 @@ const systemMessage = {
 async function buildUserMessage(req: Request): Promise<any> {
   try {
     const body = await req.json();
+    if (!body?.textsToTranslate || !body?.languageToTranslateTo) return;
 
     return {
       role: "user",
-      content: `translate the object bellow from english to portuguese\n ${JSON.stringify(
-        body
-      )}`,
+      content: `translate the array to ${body?.languageToTranslateTo}\n ${body?.textsToTranslate}`,
     };
   } catch (error) {
     console.error(error);
