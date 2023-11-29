@@ -93,6 +93,8 @@ class FigmaAPI {
 
       ["http://www.figma.com", "http://staging.figma.com"].forEach((origin) => {
         try {
+          console.log("entrou aqui", origin, msg);
+
           parent.postMessage(msg, origin);
         } catch {}
       });
