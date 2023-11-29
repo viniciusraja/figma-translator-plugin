@@ -78,13 +78,11 @@ class FigmaAPI {
         pluginId: "*",
       };
 
-      ["https://www.figma.com", "https://staging.figma.com"].forEach(
-        (origin) => {
-          try {
-            parent.postMessage(msg, origin);
-          } catch {}
-        }
-      );
+      ["http://www.figma.com", "http://staging.figma.com"].forEach((origin) => {
+        try {
+          parent.postMessage(msg, origin);
+        } catch {}
+      });
     });
   }
 }
