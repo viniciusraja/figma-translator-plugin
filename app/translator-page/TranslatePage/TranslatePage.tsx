@@ -101,14 +101,17 @@ const TranslatePage = () => {
     useBoolean();
 
   const handleTranslationResults = async () => {
+    console.log("handleTranslationResults 1");
     if (activeTranslationReplaceMethod === "replace_original") return;
     try {
+      console.log("handleTranslationResults 2");
       return await figmaAPI.run(
         (
           figma,
           { activeTranslationReplaceMethod, activeTranslationReplacePosition }
         ) => {
-          console.log(figma, "entrou em figma api");
+          console.log(figma);
+          console.log("entrou em figma api");
           const positionFrame = (
             frameToReplace: FrameNode,
             replacePosition: TranslationReplacementPosition
@@ -165,6 +168,7 @@ const TranslatePage = () => {
 
             figma.currentPage.selection = newSelection;
           }
+          console.log("handleTranslationResults 3");
         },
         { activeTranslationReplaceMethod, activeTranslationReplacePosition }
       );
@@ -176,31 +180,41 @@ const TranslatePage = () => {
   const handleTranslate = async () => {
     setIsLoadingOn();
     console.log(" hcmou o traduz");
-
-    await handleTranslationResults();
-
-    const allTexts = await getTextForSelection();
-    if (!allTexts) return;
-    const formattedTextsSelections = translationPayloadFormatter(allTexts);
-    const languagesToTranslate = watch("translate_to_languages")
-      ?.map((language) => language?.language)
-      ?.join(",");
-
     try {
+      console.log(" entrou em handle 1");
+
+      await handleTranslationResults();
+
+      console.log(" entrou em handle 2");
+      const allTexts = await getTextForSelection();
+      console.log(" entrou em handle 3");
+      if (!allTexts) return;
+      console.log(" entrou em handle 4");
+      const formattedTextsSelections = translationPayloadFormatter(allTexts);
+      console.log(" entrou em handle 5");
+      const languagesToTranslate = watch("translate_to_languages")
+        ?.map((language) => language?.language)
+        ?.join(",");
+      console.log(" entrou em handle 6");
+
       const jsonResponse = await getTranslation(
         formattedTextsSelections,
         languagesToTranslate
       );
+      console.log(" entrou em handle 7");
 
       const formattedTranslationsResponse = translationResponseFormatter(
         jsonResponse,
         allTexts
       );
+      console.log(" entrou em handle 8");
 
       formattedTranslationsResponse?.forEach(async (translationNode) => {
         await setFigmaTextByNodeId(translationNode?.id, translationNode?.text);
       });
+      console.log(" entrou em handle 9");
     } catch (err) {
+      console.log(" entrou em erro", err);
       console.error(err, "response error");
     }
     setIsLoadingOff();
