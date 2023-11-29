@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * This is a magic file that allows us to run code in the Figma plugin context
  * from the iframe. It does this by getting the code as a string, and sending it
@@ -75,6 +77,7 @@ class FigmaAPI {
           }
         }
       };
+      console.log(window, " window");
       window?.addEventListener("message", cb);
       console.log("entoru em figma api run 9");
 
