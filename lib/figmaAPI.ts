@@ -77,8 +77,8 @@ class FigmaAPI {
           }
         }
       };
-      console.log(window, " window");
       window?.addEventListener("message", cb);
+      console.log(window, " window");
       console.log("entoru em figma api run 9");
 
       const msg = {
@@ -95,7 +95,7 @@ class FigmaAPI {
         try {
           console.log("entrou aqui", origin, msg);
 
-          parent.postMessage(msg, origin);
+          window.postMessage(msg, origin);
         } catch {}
       });
     });
