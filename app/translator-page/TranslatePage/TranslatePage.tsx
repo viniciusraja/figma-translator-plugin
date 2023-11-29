@@ -214,19 +214,6 @@ const TranslatePage = () => {
           <Text fontSize="md">
             Selecione o(s) frame(s) que deseja traduzir:
           </Text>
-          //TODO implement counting on select event
-          {/* <HStack
-            bg="hover.light"
-            w="100%"
-            borderRadius="8px"
-            p="8px"
-            justifyContent="center"
-          >
-            <Text fontSize="md" color="primary" fontWeight={"bold"}>
-              {selectedTexts}
-            </Text>
-            <Text fontSize="md">palavra(s) selecionada(s)</Text>
-          </HStack> */}
           <Text fontWeight="bold" fontSize="md">
             Traduzir Para:
           </Text>

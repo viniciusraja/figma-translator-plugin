@@ -13,7 +13,7 @@ const TranslatorTabPanel = () => {
   const handleTranslate = async () => {
     setIsLoadingOn();
     const allTexts = await getTextForSelection();
-
+    if (!allTexts) return;
     const formattedTextsSelections = translationPayloadFormatter(allTexts);
 
     try {
