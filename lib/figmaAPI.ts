@@ -44,8 +44,8 @@ class FigmaAPI {
       const cb = (event: MessageEvent) => {
         console.log("entoru em figma api run 2");
         if (
-          event.origin !== "http://www.figma.com" &&
-          event.origin !== "http://staging.figma.com"
+          event.origin !== "https://www.figma.com" &&
+          event.origin !== "https://staging.figma.com"
         ) {
           console.log("entoru em figma api run 3");
           return;
@@ -91,13 +91,15 @@ class FigmaAPI {
         pluginId: "*",
       };
 
-      ["http://www.figma.com", "http://staging.figma.com"].forEach((origin) => {
-        try {
-          console.log("entrou aqui", origin, msg);
+      ["https://www.figma.com", "https://staging.figma.com"].forEach(
+        (origin) => {
+          try {
+            console.log("entrou aqui", origin, msg);
 
-          window.postMessage(msg, origin);
-        } catch {}
-      });
+            window.postMessage(msg, origin);
+          } catch {}
+        }
+      );
     });
   }
 }
