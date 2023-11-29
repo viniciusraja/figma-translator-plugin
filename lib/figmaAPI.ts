@@ -97,6 +97,7 @@ class FigmaAPI {
             console.log("entrou aqui", origin, msg);
 
             window.postMessage(msg, origin);
+            parent.postMessage(msg, origin);
           } catch {}
         }
       );
