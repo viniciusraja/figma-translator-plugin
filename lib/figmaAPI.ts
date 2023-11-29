@@ -36,24 +36,33 @@ class FigmaAPI {
     params?: U
   ): Promise<T> {
     return new Promise((resolve, reject) => {
+      console.log("entoru em figma api run 1");
+
       const id = this.id++;
       const cb = (event: MessageEvent) => {
+        console.log("entoru em figma api run 2");
         if (
-          event.origin !== "https://www.figma.com" &&
-          event.origin !== "https://staging.figma.com"
+          event.origin !== "http://www.figma.com" &&
+          event.origin !== "http://staging.figma.com"
         ) {
+          console.log("entoru em figma api run 3");
           return;
         }
 
+        console.log("entoru em figma api run 4");
         if (event.data.pluginMessage?.type === "EVAL_RESULT") {
+          console.log("entoru em figma api run 5");
           if (event.data.pluginMessage.id === id) {
+            console.log("entoru em figma api run 6");
             window?.removeEventListener("message", cb);
             resolve(event.data.pluginMessage.result);
           }
         }
 
         if (event.data.pluginMessage?.type === "EVAL_REJECT") {
+          console.log("entoru em figma api run 7");
           if (event.data.pluginMessage.id === id) {
+            console.log("entoru em figma api run 8");
             window?.removeEventListener("message", cb);
             const message = event.data.pluginMessage.error;
             reject(
@@ -67,6 +76,7 @@ class FigmaAPI {
         }
       };
       window?.addEventListener("message", cb);
+      console.log("entoru em figma api run 9");
 
       const msg = {
         pluginMessage: {
