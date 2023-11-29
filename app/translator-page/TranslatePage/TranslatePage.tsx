@@ -102,75 +102,80 @@ const TranslatePage = () => {
 
   const handleTranslationResults = async () => {
     if (activeTranslationReplaceMethod === "replace_original") return;
-
-    return await figmaAPI.run(
-      (
-        figma,
-        { activeTranslationReplaceMethod, activeTranslationReplacePosition }
-      ) => {
-        const positionFrame = (
-          frameToReplace: FrameNode,
-          replacePosition: TranslationReplacementPosition
+    try {
+      return await figmaAPI.run(
+        (
+          figma,
+          { activeTranslationReplaceMethod, activeTranslationReplacePosition }
         ) => {
-          const replaceOffset = 50;
-          if (replacePosition === "bottom") {
-            frameToReplace.y =
-              frameToReplace.y + frameToReplace.height + replaceOffset;
-          }
-          if (replacePosition === "top") {
-            frameToReplace.y =
-              frameToReplace.y - frameToReplace.height - replaceOffset;
-          }
-          if (replacePosition === "left") {
-            frameToReplace.x =
-              frameToReplace.x - frameToReplace.width - replaceOffset;
-          }
-          if (replacePosition === "right") {
-            frameToReplace.x =
-              frameToReplace.x + frameToReplace.width + replaceOffset;
-          }
-        };
-
-        let newSelection = [];
-        const { selection } = figma.currentPage;
-        if (activeTranslationReplaceMethod === "create_new_frame") {
-          for (const node of selection) {
-            if (node?.type === "FRAME") {
-              const clonedFrame = node?.clone();
-
-              positionFrame(clonedFrame, activeTranslationReplacePosition);
-
-              figma.currentPage.appendChild(clonedFrame);
-              newSelection.push(clonedFrame);
+          console.log(figma, "entrou em figma api");
+          const positionFrame = (
+            frameToReplace: FrameNode,
+            replacePosition: TranslationReplacementPosition
+          ) => {
+            const replaceOffset = 50;
+            if (replacePosition === "bottom") {
+              frameToReplace.y =
+                frameToReplace.y + frameToReplace.height + replaceOffset;
             }
-          }
-          figma.currentPage.selection = newSelection;
-        }
-        if (activeTranslationReplaceMethod === "create_in_new_page") {
-          const newPage = figma.createPage();
-
-          for (const node of selection) {
-            if (node?.type === "FRAME") {
-              const clonedFrame = node?.clone();
-
-              positionFrame(clonedFrame, activeTranslationReplacePosition);
-
-              newPage.appendChild(clonedFrame);
-
-              newSelection.push(clonedFrame);
+            if (replacePosition === "top") {
+              frameToReplace.y =
+                frameToReplace.y - frameToReplace.height - replaceOffset;
             }
-          }
-          figma.currentPage = newPage;
+            if (replacePosition === "left") {
+              frameToReplace.x =
+                frameToReplace.x - frameToReplace.width - replaceOffset;
+            }
+            if (replacePosition === "right") {
+              frameToReplace.x =
+                frameToReplace.x + frameToReplace.width + replaceOffset;
+            }
+          };
 
-          figma.currentPage.selection = newSelection;
-        }
-      },
-      { activeTranslationReplaceMethod, activeTranslationReplacePosition }
-    );
+          let newSelection = [];
+          const { selection } = figma.currentPage;
+          if (activeTranslationReplaceMethod === "create_new_frame") {
+            for (const node of selection) {
+              if (node?.type === "FRAME") {
+                const clonedFrame = node?.clone();
+
+                positionFrame(clonedFrame, activeTranslationReplacePosition);
+
+                figma.currentPage.appendChild(clonedFrame);
+                newSelection.push(clonedFrame);
+              }
+            }
+            figma.currentPage.selection = newSelection;
+          }
+          if (activeTranslationReplaceMethod === "create_in_new_page") {
+            const newPage = figma.createPage();
+
+            for (const node of selection) {
+              if (node?.type === "FRAME") {
+                const clonedFrame = node?.clone();
+
+                positionFrame(clonedFrame, activeTranslationReplacePosition);
+
+                newPage.appendChild(clonedFrame);
+
+                newSelection.push(clonedFrame);
+              }
+            }
+            figma.currentPage = newPage;
+
+            figma.currentPage.selection = newSelection;
+          }
+        },
+        { activeTranslationReplaceMethod, activeTranslationReplacePosition }
+      );
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleTranslate = async () => {
     setIsLoadingOn();
+    console.log(" hcmou o traduz");
 
     await handleTranslationResults();
 
