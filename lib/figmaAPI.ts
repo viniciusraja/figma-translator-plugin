@@ -90,7 +90,9 @@ class FigmaAPI {
         (origin) => {
           try {
             parent.postMessage(msg, origin);
-          } catch {}
+          } catch (err) {
+            console.error(err);
+          }
         }
       );
     });
