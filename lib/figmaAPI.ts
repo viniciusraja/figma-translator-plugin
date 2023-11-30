@@ -38,33 +38,24 @@ class FigmaAPI {
     params?: U
   ): Promise<T> {
     return new Promise((resolve, reject) => {
-      console.log("entoru em figma api run 1");
-
       const id = this.id++;
       const cb = (event: MessageEvent) => {
-        console.log("entoru em figma api run 2");
         if (
           event.origin !== "https://www.figma.com" &&
           event.origin !== "https://staging.figma.com"
         ) {
-          console.log("entoru em figma api run 3");
           return;
         }
 
-        console.log("entoru em figma api run 4");
         if (event.data.pluginMessage?.type === "EVAL_RESULT") {
-          console.log("entoru em figma api run 5");
           if (event.data.pluginMessage.id === id) {
-            console.log("entoru em figma api run 6");
             window?.removeEventListener("message", cb);
             resolve(event.data.pluginMessage.result);
           }
         }
 
         if (event.data.pluginMessage?.type === "EVAL_REJECT") {
-          console.log("entoru em figma api run 7");
           if (event.data.pluginMessage.id === id) {
-            console.log("entoru em figma api run 8");
             window?.removeEventListener("message", cb);
             const message = event.data.pluginMessage.error;
             reject(
@@ -77,10 +68,14 @@ class FigmaAPI {
           }
         }
       };
-      window?.addEventListener("message", cb);
-      console.log(window, " window");
-      console.log("entoru em figma api run 9");
-
+      if (typeof window !== "undefined") {
+        window?.addEventListener("message", cb);
+      } else {
+        // Handle the case when running on the server side (if needed)
+        console.warn("Window object not available. Event listener not added.");
+        reject(new Error("Window object not available."));
+        return;
+      }
       const msg = {
         pluginMessage: {
           type: "EVAL",
@@ -94,10 +89,6 @@ class FigmaAPI {
       ["https://www.figma.com", "https://staging.figma.com"].forEach(
         (origin) => {
           try {
-            console.log("entrou aqui", origin, msg);
-
-            window.parent.postMessage(msg, origin);
-            window.postMessage(msg, origin);
             parent.postMessage(msg, origin);
           } catch {}
         }
