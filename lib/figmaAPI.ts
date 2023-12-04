@@ -94,6 +94,7 @@ class FigmaAPI {
 
       [
         "https://www.figma.com",
+        "https://www.figma.com/api",
         // "https://staging.figma.com",
         // "https://figma-translator-plugin.vercel.app",
       ].forEach((origin) => {
