@@ -1,5 +1,3 @@
-"use client";
-
 /**
  * This is a magic file that allows us to run code in the Figma plugin context
  * from the iframe. It does this by getting the code as a string, and sending it
@@ -38,12 +36,8 @@ class FigmaAPI {
     params?: U
   ): Promise<T> {
     return new Promise((resolve, reject) => {
-      console.log(fn, params);
-
       const id = this.id++;
       const cb = (event: MessageEvent) => {
-        console.log("chamou o callback", { event });
-
         if (
           event.origin !== "https://www.figma.com" &&
           event.origin !== "https://staging.figma.com"
@@ -53,14 +47,14 @@ class FigmaAPI {
 
         if (event.data.pluginMessage?.type === "EVAL_RESULT") {
           if (event.data.pluginMessage.id === id) {
-            window?.removeEventListener("message", cb);
+            window.removeEventListener("message", cb);
             resolve(event.data.pluginMessage.result);
           }
         }
 
         if (event.data.pluginMessage?.type === "EVAL_REJECT") {
           if (event.data.pluginMessage.id === id) {
-            window?.removeEventListener("message", cb);
+            window.removeEventListener("message", cb);
             const message = event.data.pluginMessage.error;
             reject(
               new Error(
@@ -72,22 +66,8 @@ class FigmaAPI {
           }
         }
       };
-      if (typeof window !== "undefined") {
-        console.log("chamou window event listner");
+      window.addEventListener("message", cb);
 
-        window?.addEventListener("message", (event) => {
-          console.log(
-            "jasndjnasjidnijasndijasndinasidjnaisjdniasndijasndijansdj"
-          );
-          console.log({ event });
-          cb(event);
-        });
-      } else {
-        // Handle the case when running on the server side (if needed)
-        console.warn("Window object not available. Event listener not added.");
-        reject(new Error("Window object not available."));
-        return;
-      }
       const msg = {
         pluginMessage: {
           type: "EVAL",
@@ -95,22 +75,18 @@ class FigmaAPI {
           id,
           params,
         },
-        pluginId: "1311417411869185756",
+        pluginId: "*",
       };
 
-      [
-        "https://www.figma.com",
-        "https://www.figma.com/api",
-        // "https://staging.figma.com",
-        // "https://figma-translator-plugin.vercel.app",
-      ].forEach((origin) => {
-        try {
-          parent.postMessage(msg, origin);
-          console.log({ parent });
-        } catch (err) {
-          console.error(err);
+      ["https://www.figma.com", "https://staging.figma.com"].forEach(
+        (origin) => {
+          try {
+            parent.postMessage(msg, origin);
+          } catch (err) {
+            console.error(err);
+          }
         }
-      });
+      );
     });
   }
 }
