@@ -38,6 +38,8 @@ class FigmaAPI {
     params?: U
   ): Promise<T> {
     return new Promise((resolve, reject) => {
+      console.log(fn, params);
+
       const id = this.id++;
       const cb = (event: MessageEvent) => {
         console.log("chamou o callback", { event });
