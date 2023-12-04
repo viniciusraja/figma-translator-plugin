@@ -3,7 +3,7 @@ const getTranslation = async (
   languageToTranslate: string
 ) => {
   try {
-    const response = await fetch(`${process.env.SITE_URL}/api/completion`, {
+    const response = await fetch(`/api/completion`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
