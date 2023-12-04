@@ -99,6 +99,7 @@ class FigmaAPI {
       ].forEach((origin) => {
         try {
           parent.postMessage(msg, origin);
+          console.log({ parent });
         } catch (err) {
           console.error(err);
         }
