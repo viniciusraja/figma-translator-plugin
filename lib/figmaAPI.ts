@@ -92,15 +92,17 @@ class FigmaAPI {
         pluginId: "1311417411869185756",
       };
 
-      ["https://www.figma.com", "https://staging.figma.com"].forEach(
-        (origin) => {
-          try {
-            parent.postMessage(msg, origin);
-          } catch (err) {
-            console.error(err);
-          }
+      [
+        "https://www.figma.com",
+        "https://staging.figma.com",
+        "https://figma-translator-plugin.vercel.app",
+      ].forEach((origin) => {
+        try {
+          parent.postMessage(msg, origin);
+        } catch (err) {
+          console.error(err);
         }
-      );
+      });
     });
   }
 }
