@@ -94,8 +94,8 @@ class FigmaAPI {
 
       [
         "https://www.figma.com",
-        "https://staging.figma.com",
-        "https://figma-translator-plugin.vercel.app",
+        // "https://staging.figma.com",
+        // "https://figma-translator-plugin.vercel.app",
       ].forEach((origin) => {
         try {
           parent.postMessage(msg, origin);
