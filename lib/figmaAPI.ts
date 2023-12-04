@@ -75,7 +75,13 @@ class FigmaAPI {
       if (typeof window !== "undefined") {
         console.log("chamou window event listner");
 
-        window?.addEventListener("message", cb);
+        window?.addEventListener("message", (event) => {
+          console.log(
+            "jasndjnasjidnijasndijasndinasidjnaisjdniasndijasndijansdj"
+          );
+          console.log({ event });
+          cb(event);
+        });
       } else {
         // Handle the case when running on the server side (if needed)
         console.warn("Window object not available. Event listener not added.");
