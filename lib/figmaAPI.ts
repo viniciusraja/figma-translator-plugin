@@ -40,6 +40,8 @@ class FigmaAPI {
     return new Promise((resolve, reject) => {
       const id = this.id++;
       const cb = (event: MessageEvent) => {
+        console.log("chamou o callback", { event });
+
         if (
           event.origin !== "https://www.figma.com" &&
           event.origin !== "https://staging.figma.com"
@@ -85,7 +87,7 @@ class FigmaAPI {
           id,
           params,
         },
-        pluginId: "*",
+        pluginId: "1311417411869185756",
       };
 
       ["https://www.figma.com", "https://staging.figma.com"].forEach(
