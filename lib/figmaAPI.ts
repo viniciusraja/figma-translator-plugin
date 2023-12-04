@@ -69,6 +69,8 @@ class FigmaAPI {
         }
       };
       if (typeof window !== "undefined") {
+        console.log("chamou window event listner");
+
         window?.addEventListener("message", cb);
       } else {
         // Handle the case when running on the server side (if needed)
